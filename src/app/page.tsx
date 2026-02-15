@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { AnimatedPostGrid } from "@/components/blog/animated-post-grid";
+import { PostPagination } from "@/components/blog/post-pagination";
 import { SiteHeader } from "@/components/blog/site-header";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
@@ -14,8 +15,33 @@ export const metadata: Metadata = {
     "Personal writing on tech execution, business strategy, self-reflection, and in-progress thoughts.",
 };
 
-export default async function HomePage() {
+type HomePageProps = {
+  searchParams: Promise<{
+    page?: string | string[];
+  }>;
+};
+
+const POSTS_PER_PAGE = 4;
+
+function getPageNumber(pageParam?: string | string[]) {
+  const raw = Array.isArray(pageParam) ? pageParam[0] : pageParam;
+  const parsed = Number(raw ?? "1");
+
+  if (!Number.isFinite(parsed) || parsed < 1) {
+    return 1;
+  }
+
+  return Math.floor(parsed);
+}
+
+export default async function HomePage({ searchParams }: HomePageProps) {
   const posts = await getAllPosts();
+  const resolvedSearchParams = await searchParams;
+  const requestedPage = getPageNumber(resolvedSearchParams.page);
+  const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+  const currentPage = Math.min(requestedPage, totalPages);
+  const sliceStart = (currentPage - 1) * POSTS_PER_PAGE;
+  const visiblePosts = posts.slice(sliceStart, sliceStart + POSTS_PER_PAGE);
   const tagCount = posts.reduce<Record<string, number>>((acc, post) => {
     for (const tag of post.tags) {
       acc[tag] = (acc[tag] ?? 0) + 1;
@@ -48,11 +74,12 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {posts.length === 0 ? (
+        {visiblePosts.length === 0 ? (
           <p className="text-sm text-muted-foreground">No posts yet.</p>
         ) : (
           <div className="overflow-hidden">
-            <AnimatedPostGrid posts={posts} />
+            <AnimatedPostGrid posts={visiblePosts} />
+            <PostPagination currentPage={currentPage} totalPages={totalPages} />
           </div>
         )}
       </section>
