@@ -293,3 +293,50 @@
   font-size: 0.9em;
   background: color-mix(in oklab, var(--muted) 60%, transparent);
 }
+
+.prose-tokenized :where(pre code) {
+  display: block;
+  font-family: var(--font-mono);
+  color: var(--foreground);
+}
+
+.prose-tokenized :where(.heading-anchor) {
+  text-decoration: none;
+}
+
+.prose-tokenized :where(.hljs) {
+  color: var(--foreground);
+  background: transparent;
+}
+
+.prose-tokenized :where(.hljs-comment, .hljs-quote) {
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+
+.prose-tokenized :where(.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-section) {
+  color: var(--chart-1);
+}
+
+.prose-tokenized :where(
+    .hljs-string,
+    .hljs-title,
+    .hljs-name,
+    .hljs-attribute,
+    .hljs-symbol,
+    .hljs-bullet
+  ) {
+  color: var(--chart-2);
+}
+
+.prose-tokenized :where(.hljs-number, .hljs-type, .hljs-built_in) {
+  color: var(--chart-4);
+}
+
+.prose-tokenized :where(.hljs-emphasis) {
+  font-style: italic;
+}
+
+.prose-tokenized :where(.hljs-strong) {
+  font-weight: 700;
+}

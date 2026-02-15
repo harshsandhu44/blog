@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { PostNavigation } from "@/components/blog/post-navigation";
 import { PostProse } from "@/components/blog/post-prose";
 import { SiteHeader } from "@/components/blog/site-header";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -52,6 +53,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         subtitle={post.meta.description}
         isPostPage
         postTitle={post.meta.title}
+        actionSlot={<ThemeToggle />}
       />
 
       <article className="space-y-5">

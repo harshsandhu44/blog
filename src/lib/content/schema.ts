@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+const dateValueSchema = z
+  .union([z.string(), z.date()])
+  .transform((value) => (value instanceof Date ? value.toISOString() : value))
+  .refine((value) => !Number.isNaN(Date.parse(value)), "must be a valid date");
+
 export const postFrontmatterSchema = z.object({
   slug: z
     .string()
@@ -7,14 +12,8 @@ export const postFrontmatterSchema = z.object({
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "slug must be kebab-case"),
   title: z.string().min(1, "title is required"),
   description: z.string().min(1, "description is required"),
-  date: z
-    .string()
-    .min(1, "date is required")
-    .refine((value) => !Number.isNaN(Date.parse(value)), "date must be valid"),
-  updatedAt: z
-    .string()
-    .refine((value) => !Number.isNaN(Date.parse(value)), "updatedAt must be valid")
-    .optional(),
+  date: dateValueSchema,
+  updatedAt: dateValueSchema.optional(),
   coverImage: z.string().optional(),
   tags: z.array(z.string().min(1)).optional(),
   draft: z.boolean().optional(),

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { PostCard } from "@/components/blog/post-card";
 import { SiteHeader } from "@/components/blog/site-header";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -30,7 +31,11 @@ export default async function HomePage() {
 
   return (
     <main className="chaos-shell mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 py-8 md:px-8 md:py-10">
-      <SiteHeader title="Chaotic Notes" subtitle="A markdown-first blog with strict design tokens." />
+      <SiteHeader
+        title="Chaotic Notes"
+        subtitle="A markdown-first blog with strict design tokens."
+        actionSlot={<ThemeToggle />}
+      />
 
       <Tabs defaultValue="posts" className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
