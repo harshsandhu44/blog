@@ -186,3 +186,110 @@
   mix-blend-mode: normal;
 }
 
+.chaos-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.chaos-shell::before,
+.chaos-shell::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.chaos-shell::before {
+  inset: 0 auto auto -20%;
+  width: 55%;
+  height: 45%;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--primary) 16%, transparent),
+    transparent 68%
+  );
+}
+
+.chaos-shell::after {
+  inset: auto -15% 5% auto;
+  width: 50%;
+  height: 40%;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--secondary) 34%, transparent),
+    transparent 68%
+  );
+}
+
+.prose-tokenized {
+  line-height: 1.75;
+  color: var(--foreground);
+}
+
+.prose-tokenized :where(h1, h2, h3, h4) {
+  margin-top: 2rem;
+  margin-bottom: 0.7rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.prose-tokenized :where(h1) {
+  font-size: 2rem;
+}
+
+.prose-tokenized :where(h2) {
+  font-size: 1.5rem;
+}
+
+.prose-tokenized :where(p, ul, ol, blockquote, pre, table) {
+  margin-bottom: 1rem;
+}
+
+.prose-tokenized :where(a) {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--primary) 50%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.prose-tokenized :where(blockquote) {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  color: var(--muted-foreground);
+}
+
+.prose-tokenized :where(table) {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.prose-tokenized :where(th, td) {
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+}
+
+.prose-tokenized :where(th) {
+  background: color-mix(in oklab, var(--muted) 70%, transparent);
+}
+
+.prose-tokenized :where(pre) {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  background: color-mix(in oklab, var(--muted) 55%, transparent);
+}
+
+.prose-tokenized :where(code:not(pre code)) {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 3px);
+  padding: 0.1rem 0.35rem;
+  font-size: 0.9em;
+  background: color-mix(in oklab, var(--muted) 60%, transparent);
+}
