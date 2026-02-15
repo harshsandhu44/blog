@@ -1,6 +1,7 @@
 "use client";
 
 import { Monitor, Moon, Sun } from "lucide-react";
+import { useIsHydrated } from "@radix-ui/react-use-is-hydrated";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -15,18 +16,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
+  const isHydrated = useIsHydrated();
   const { setTheme, resolvedTheme, theme } = useTheme();
-  const currentTheme = theme ?? "system";
-  const active = theme === "system" ? resolvedTheme : theme;
+  const currentTheme = isHydrated ? (theme ?? "system") : "system";
+  const active = isHydrated
+    ? currentTheme === "system"
+      ? resolvedTheme
+      : currentTheme
+    : undefined;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="min-w-24 justify-between gap-2">
           {active === "dark" ? <Moon className="size-4" /> : active === "light" ? <Sun className="size-4" /> : <Monitor className="size-4" />}
-          <span suppressHydrationWarning className="capitalize">
-            {currentTheme}
-          </span>
+          <span className="capitalize">{currentTheme}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">

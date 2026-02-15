@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -63,7 +62,7 @@ export function PostCard({ post, index }: PostCardProps) {
             </Badge>
           ))}
         </div>
-        <CardTitle className="text-xl wrap-break-word">
+        <CardTitle className="text-xl break-words">
           <Link href={`/blog/${post.slug}`} className="hover:underline">
             {post.title}
           </Link>
