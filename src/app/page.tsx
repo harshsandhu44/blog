@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PostCard } from "@/components/blog/post-card";
+import { AnimatedPostGrid } from "@/components/blog/animated-post-grid";
 import { SiteHeader } from "@/components/blog/site-header";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
@@ -52,11 +52,7 @@ export default async function HomePage() {
           <p className="text-sm text-muted-foreground">No posts yet.</p>
         ) : (
           <div className="overflow-hidden">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
-              {posts.map((post, index) => (
-                <PostCard key={post.slug} post={post} index={index} />
-              ))}
-            </div>
+            <AnimatedPostGrid posts={posts} />
           </div>
         )}
       </section>

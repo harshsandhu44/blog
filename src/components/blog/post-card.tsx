@@ -47,7 +47,7 @@ export function PostCard({ post, index }: PostCardProps) {
   return (
     <Card
       className={cn(
-        "min-w-0 flex flex-col overflow-hidden transition-transform duration-300 hover:rotate-0 hover:translate-y-0",
+        "min-w-0 h-full flex flex-col overflow-hidden transition-transform duration-300 hover:rotate-0 hover:translate-y-0",
         offsetClass,
         translateClass,
       )}
