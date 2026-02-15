@@ -2,13 +2,25 @@ import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import type { PostSummary } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
 
 const CHAOS_OFFSETS = ["rotate-1", "-rotate-1", "rotate-2", "-rotate-2"];
-const CHAOS_TRANSLATES = ["md:translate-y-0", "md:-translate-y-3", "md:translate-y-2", "md:-translate-y-1"];
+const CHAOS_TRANSLATES = [
+  "md:translate-y-0",
+  "md:-translate-y-3",
+  "md:translate-y-2",
+  "md:-translate-y-1",
+];
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat("en-US", {
@@ -28,7 +40,9 @@ export function PostCard({ post, index }: PostCardProps) {
     .join(" ");
   const translateClass = CHAOS_TRANSLATES[index % CHAOS_TRANSLATES.length]
     .split(" ")
-    .map((item) => (item.startsWith("md:") ? item.replace("md:", "lg:") : `lg:${item}`))
+    .map((item) =>
+      item.startsWith("md:") ? item.replace("md:", "lg:") : `lg:${item}`,
+    )
     .join(" ");
 
   return (
@@ -49,7 +63,7 @@ export function PostCard({ post, index }: PostCardProps) {
             </Badge>
           ))}
         </div>
-        <CardTitle className="text-xl break-words">
+        <CardTitle className="text-xl wrap-break-word">
           <Link href={`/blog/${post.slug}`} className="hover:underline">
             {post.title}
           </Link>
@@ -57,12 +71,15 @@ export function PostCard({ post, index }: PostCardProps) {
         <CardDescription>{post.description}</CardDescription>
       </CardHeader>
       <Separator />
-      <CardContent className="pt-4 text-sm text-muted-foreground">By {post.author ?? "Unknown author"}</CardContent>
-      <CardFooter>
-        <Button asChild variant="outline">
+      <CardContent className="py-2 flex items-center justify-between gap-4">
+        <p className=" text-sm text-muted-foreground">
+          By {post.author ?? "Unknown author"}
+        </p>
+
+        <Button asChild variant="link">
           <Link href={`/blog/${post.slug}`}>Read post</Link>
         </Button>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 }
