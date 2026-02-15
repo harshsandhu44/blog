@@ -39,7 +39,11 @@ export default async function HomePage() {
           <h2 className="text-lg font-medium">Posts</h2>
           <div className="flex flex-wrap gap-2">
             {topTags.map(([tag, count]) => (
-              <Badge key={tag} variant="outline">{`${tag} (${count})`}</Badge>
+              <Badge
+                key={tag}
+                variant="outline"
+                className="capitalize"
+              >{`${tag} (${count})`}</Badge>
             ))}
           </div>
         </div>

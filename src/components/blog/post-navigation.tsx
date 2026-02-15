@@ -25,12 +25,17 @@ export function PostNavigation({ prev, next }: PostNavigationProps) {
         </CardHeader>
         <CardContent>
           {prev ? (
-            <Link href={`/blog/${prev.slug}`} className="group inline-flex items-start gap-2 text-base font-medium leading-snug hover:underline">
+            <Link
+              href={`/blog/${prev.slug}`}
+              className="group inline-flex items-start gap-2 text-base font-medium leading-snug hover:underline"
+            >
               <ArrowLeft className="mt-0.5 size-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
-              <span className="break-words">{prev.title}</span>
+              <span className="wrap-break-word">{prev.title}</span>
             </Link>
           ) : (
-            <p className="text-sm text-muted-foreground">You are at the first post in this sequence.</p>
+            <p className="text-sm text-muted-foreground">
+              You are at the first post in this sequence.
+            </p>
           )}
         </CardContent>
       </Card>
@@ -43,12 +48,17 @@ export function PostNavigation({ prev, next }: PostNavigationProps) {
         </CardHeader>
         <CardContent>
           {next ? (
-            <Link href={`/blog/${next.slug}`} className="group inline-flex items-start gap-2 text-base font-medium leading-snug hover:underline">
-              <span className="break-words">{next.title}</span>
+            <Link
+              href={`/blog/${next.slug}`}
+              className="group inline-flex items-start gap-2 text-base font-medium leading-snug hover:underline"
+            >
+              <span className="wrap-break-word">{next.title}</span>
               <ArrowRight className="mt-0.5 size-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
             </Link>
           ) : (
-            <p className="text-sm text-muted-foreground">No newer post available yet.</p>
+            <p className="text-sm text-muted-foreground">
+              No newer post available yet.
+            </p>
           )}
         </CardContent>
       </Card>

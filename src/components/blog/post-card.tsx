@@ -47,22 +47,22 @@ export function PostCard({ post, index }: PostCardProps) {
   return (
     <Card
       className={cn(
-        "min-w-0 overflow-hidden transition-transform duration-300 hover:rotate-0 hover:translate-y-0",
+        "min-w-0 flex flex-col overflow-hidden transition-transform duration-300 hover:rotate-0 hover:translate-y-0",
         offsetClass,
         translateClass,
       )}
     >
-      <CardHeader className="space-y-3">
+      <CardHeader className="flex-1 space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="secondary">{formatDate(post.date)}</Badge>
           <Badge variant="outline">{post.readingTime}</Badge>
           {post.tags.slice(0, 2).map((tag) => (
-            <Badge key={tag} variant="outline">
+            <Badge key={tag} variant="outline" className="capitalize">
               {tag}
             </Badge>
           ))}
         </div>
-        <CardTitle className="text-xl break-words">
+        <CardTitle className="text-xl wrap-break-word">
           <Link href={`/blog/${post.slug}`} className="hover:underline">
             {post.title}
           </Link>
