@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:tokens": "node scripts/check-design-tokens.mjs",
+    "test": "vitest run && bun run check:tokens"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

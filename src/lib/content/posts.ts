@@ -10,6 +10,7 @@ import { postFrontmatterSchema, type PostFrontmatter, type PostSummary } from "@
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
 type ParsedPost = {
+  filePath: string;
   meta: PostSummary;
   content: string;
 };
@@ -37,11 +38,20 @@ function toPostSummary(frontmatter: PostFrontmatter, content: string): PostSumma
   };
 }
 
+function getPostsDirectory(): string {
+  if (process.env.BLOG_CONTENT_DIR) {
+    return path.resolve(process.env.BLOG_CONTENT_DIR);
+  }
+
+  return POSTS_DIR;
+}
+
 async function readMarkdownFiles(): Promise<string[]> {
-  const entries = await readdir(POSTS_DIR, { withFileTypes: true });
+  const postsDir = getPostsDirectory();
+  const entries = await readdir(postsDir, { withFileTypes: true });
   return entries
     .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
-    .map((entry) => path.join(POSTS_DIR, entry.name));
+    .map((entry) => path.join(postsDir, entry.name));
 }
 
 function validateFrontmatter(raw: unknown, filePath: string): PostFrontmatter {
@@ -59,6 +69,7 @@ async function parsePost(filePath: string): Promise<ParsedPost> {
   const { data, content } = matter(raw);
   const frontmatter = validateFrontmatter(data, filePath);
   return {
+    filePath,
     meta: toPostSummary(frontmatter, content),
     content,
   };
@@ -71,7 +82,10 @@ async function loadPosts(): Promise<ParsedPost[]> {
 
   for (const post of posts) {
     if (seenSlugs.has(post.meta.slug)) {
-      throw new ContentValidationError(`Duplicate slug detected: ${post.meta.slug}`);
+      throw new ContentValidationError(
+        `Duplicate slug detected: ${post.meta.slug} in ${path.basename(post.filePath)}`,
+        post.filePath,
+      );
     }
     seenSlugs.add(post.meta.slug);
   }
