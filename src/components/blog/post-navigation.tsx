@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { PostSummary } from "@/lib/content/schema";
 
 type PostNavigationProps = {
@@ -16,32 +16,42 @@ export function PostNavigation({ prev, next }: PostNavigationProps) {
   }
 
   return (
-    <Card className="border-dashed">
-      <CardHeader>
-        <CardTitle className="text-base">Continue reading</CardTitle>
-      </CardHeader>
-      <CardContent className="grid gap-3 sm:grid-cols-2">
-        <Button asChild variant="outline" className="w-full justify-start text-left">
+    <section className="grid gap-3 md:grid-cols-2">
+      <Card className="min-h-32">
+        <CardHeader className="pb-3">
+          <Badge variant="outline" className="w-fit">
+            Previous
+          </Badge>
+        </CardHeader>
+        <CardContent>
           {prev ? (
-            <Link href={`/blog/${prev.slug}`}>
-              <ArrowLeft />
-              {prev.title}
+            <Link href={`/blog/${prev.slug}`} className="group inline-flex items-start gap-2 text-base font-medium leading-snug hover:underline">
+              <ArrowLeft className="mt-0.5 size-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
+              <span className="break-words">{prev.title}</span>
             </Link>
           ) : (
-            <span className="opacity-60">No older post</span>
+            <p className="text-sm text-muted-foreground">You are at the first post in this sequence.</p>
           )}
-        </Button>
-        <Button asChild variant="outline" className="w-full justify-end text-right">
+        </CardContent>
+      </Card>
+
+      <Card className="min-h-32">
+        <CardHeader className="pb-3">
+          <Badge variant="outline" className="w-fit">
+            Next
+          </Badge>
+        </CardHeader>
+        <CardContent>
           {next ? (
-            <Link href={`/blog/${next.slug}`}>
-              {next.title}
-              <ArrowRight />
+            <Link href={`/blog/${next.slug}`} className="group inline-flex items-start gap-2 text-base font-medium leading-snug hover:underline">
+              <span className="break-words">{next.title}</span>
+              <ArrowRight className="mt-0.5 size-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
             </Link>
           ) : (
-            <span className="opacity-60">No newer post</span>
+            <p className="text-sm text-muted-foreground">No newer post available yet.</p>
           )}
-        </Button>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </section>
   );
 }

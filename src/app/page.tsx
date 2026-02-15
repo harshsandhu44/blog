@@ -3,11 +3,7 @@ import type { Metadata } from "next";
 import { PostCard } from "@/components/blog/post-card";
 import { SiteHeader } from "@/components/blog/site-header";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getAllPosts } from "@/lib/content/posts";
 
 export const dynamic = "force-dynamic";
@@ -37,58 +33,28 @@ export default async function HomePage() {
         actionSlot={<ThemeToggle />}
       />
 
-      <Tabs defaultValue="posts" className="space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <TabsList>
-            <TabsTrigger value="posts">Posts</TabsTrigger>
-            <TabsTrigger value="system">System</TabsTrigger>
-          </TabsList>
-
+      <section className="rounded-xl border border-border bg-muted/20 p-4 md:p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-lg font-medium">Posts</h2>
           <div className="flex flex-wrap gap-2">
-            {topTags.length > 0 ? (
-              topTags.map(([tag, count]) => (
-                <Badge key={tag} variant="outline">{`${tag} (${count})`}</Badge>
-              ))
-            ) : (
-              <Skeleton className="h-6 w-24" />
-            )}
+            {topTags.map(([tag, count]) => (
+              <Badge key={tag} variant="outline">{`${tag} (${count})`}</Badge>
+            ))}
           </div>
         </div>
 
-        <TabsContent value="posts">
-          <ScrollArea className="h-[60vh] rounded-xl border border-border bg-muted/20 p-3 md:p-4">
-            {posts.length === 0 ? (
-              <div className="grid gap-3">
-                <Skeleton className="h-36" />
-                <Skeleton className="h-36" />
-              </div>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2">
-                {posts.map((post, index) => (
-                  <PostCard key={post.slug} post={post} index={index} />
-                ))}
-              </div>
-            )}
-          </ScrollArea>
-        </TabsContent>
-
-        <TabsContent value="system">
-          <Accordion type="single" collapsible className="rounded-xl border border-border bg-card px-5">
-            <AccordionItem value="tokens">
-              <AccordionTrigger>Token constraints</AccordionTrigger>
-              <AccordionContent>No hardcoded or palette colors in component code. Only semantic tokens.</AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="markdown">
-              <AccordionTrigger>Content source</AccordionTrigger>
-              <AccordionContent>All blog entries are loaded from markdown files in the local repository.</AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="ui">
-              <AccordionTrigger>UI composition</AccordionTrigger>
-              <AccordionContent>Layouts are composed with shadcn and Radix primitives, with playful offsets and rotations.</AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </TabsContent>
-      </Tabs>
+        {posts.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No posts yet.</p>
+        ) : (
+          <div className="overflow-hidden">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
+              {posts.map((post, index) => (
+                <PostCard key={post.slug} post={post} index={index} />
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
     </main>
   );
 }

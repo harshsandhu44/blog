@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Home, Menu, PenSquare } from "lucide-react";
+import { Home, Menu } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -24,7 +24,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Sheet,
   SheetContent,
@@ -82,20 +81,6 @@ export function SiteHeader({ title, subtitle, isPostPage, postTitle, actionSlot 
               </TooltipTrigger>
               <TooltipContent>Go to feed</TooltipContent>
             </Tooltip>
-
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <PenSquare />
-                  <span className="sr-only">About</span>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-64">
-                <p className="text-sm text-muted-foreground">
-                  Chaotic composition, strict token discipline, markdown-first content.
-                </p>
-              </PopoverContent>
-            </Popover>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

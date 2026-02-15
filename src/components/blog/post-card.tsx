@@ -22,11 +22,23 @@ type PostCardProps = {
 };
 
 export function PostCard({ post, index }: PostCardProps) {
-  const offsetClass = CHAOS_OFFSETS[index % CHAOS_OFFSETS.length];
-  const translateClass = CHAOS_TRANSLATES[index % CHAOS_TRANSLATES.length];
+  const offsetClass = CHAOS_OFFSETS[index % CHAOS_OFFSETS.length]
+    .split(" ")
+    .map((item) => `lg:${item}`)
+    .join(" ");
+  const translateClass = CHAOS_TRANSLATES[index % CHAOS_TRANSLATES.length]
+    .split(" ")
+    .map((item) => (item.startsWith("md:") ? item.replace("md:", "lg:") : `lg:${item}`))
+    .join(" ");
 
   return (
-    <Card className={cn("transition-transform duration-300 hover:rotate-0 hover:translate-y-0", offsetClass, translateClass)}>
+    <Card
+      className={cn(
+        "min-w-0 overflow-hidden transition-transform duration-300 hover:rotate-0 hover:translate-y-0",
+        offsetClass,
+        translateClass,
+      )}
+    >
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="secondary">{formatDate(post.date)}</Badge>
@@ -37,7 +49,7 @@ export function PostCard({ post, index }: PostCardProps) {
             </Badge>
           ))}
         </div>
-        <CardTitle className="text-xl">
+        <CardTitle className="text-xl break-words">
           <Link href={`/blog/${post.slug}`} className="hover:underline">
             {post.title}
           </Link>

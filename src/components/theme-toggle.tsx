@@ -1,47 +1,51 @@
 "use client";
 
-import { Check, Moon, Sun } from "lucide-react";
+import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
   const { setTheme, resolvedTheme, theme } = useTheme();
+  const currentTheme = theme ?? "system";
   const active = theme === "system" ? resolvedTheme : theme;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          {active === "dark" ? <Moon /> : <Sun />}
-          <span className="sr-only">Toggle theme</span>
+        <Button variant="outline" size="sm" className="min-w-24 justify-between gap-2">
+          {active === "dark" ? <Moon className="size-4" /> : active === "light" ? <Sun className="size-4" /> : <Monitor className="size-4" />}
+          <span suppressHydrationWarning className="capitalize">
+            {currentTheme}
+          </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="w-40">
         <DropdownMenuLabel>Theme</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem checked={theme === "light"} onCheckedChange={() => setTheme("light")}>
-          <Sun />
-          Light
-          {theme === "light" ? <Check className="ml-auto" /> : null}
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem checked={theme === "dark"} onCheckedChange={() => setTheme("dark")}>
-          <Moon />
-          Dark
-          {theme === "dark" ? <Check className="ml-auto" /> : null}
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem checked={theme === "system"} onCheckedChange={() => setTheme("system")}>
-          System
-          {theme === "system" ? <Check className="ml-auto" /> : null}
-        </DropdownMenuCheckboxItem>
+        <DropdownMenuRadioGroup value={currentTheme} onValueChange={(value) => setTheme(value)}>
+          <DropdownMenuRadioItem value="light">
+            <Sun className="mr-2 size-4" />
+            Light
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="dark">
+            <Moon className="mr-2 size-4" />
+            Dark
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="system">
+            <Monitor className="mr-2 size-4" />
+            System
+          </DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
