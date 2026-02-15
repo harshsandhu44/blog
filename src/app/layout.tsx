@@ -7,10 +7,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Harsh Sandhu Blog",
-    template: "%s | Harsh Sandhu Blog",
+    default: "Harsh Sandhu - Tech, Business, and Reflection",
+    template: "%s | Harsh Sandhu",
   },
-  description: "Chaotic design, strict tokens, markdown-first content.",
+  description:
+    "A personal blog by Harsh Sandhu covering technology, business strategy, self-reflection, and thoughts in progress.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

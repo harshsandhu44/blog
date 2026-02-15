@@ -9,8 +9,9 @@ import { getAllPosts } from "@/lib/content/posts";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Markdown posts rendered with a chaotic but system-driven design language.",
+  title: "Harsh Sandhu - Notes on Tech, Business, and Life",
+  description:
+    "Personal writing on tech execution, business strategy, self-reflection, and in-progress thoughts.",
 };
 
 export default async function HomePage() {
@@ -28,8 +29,8 @@ export default async function HomePage() {
   return (
     <main className="chaos-shell mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 py-8 md:px-8 md:py-10">
       <SiteHeader
-        title="Chaotic Notes"
-        subtitle="A markdown-first blog with strict design tokens."
+        title="Harsh Sandhu"
+        subtitle="Tech, business, self-reflection, and unfiltered working notes."
         actionSlot={<ThemeToggle />}
       />
 
