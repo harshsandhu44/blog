@@ -23,7 +23,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import {
   Sheet,
   SheetContent,
@@ -32,7 +36,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type SiteHeaderProps = {
   title: string;
@@ -42,7 +50,13 @@ type SiteHeaderProps = {
   actionSlot?: ReactNode;
 };
 
-export function SiteHeader({ title, subtitle, isPostPage, postTitle, actionSlot }: SiteHeaderProps) {
+export function SiteHeader({
+  title,
+  subtitle,
+  isPostPage,
+  postTitle,
+  actionSlot,
+}: SiteHeaderProps) {
   return (
     <Card className="relative overflow-hidden border-border/60 bg-card/80 backdrop-blur-sm">
       <CardContent className="space-y-6 p-5 md:p-6">
@@ -51,7 +65,12 @@ export function SiteHeader({ title, subtitle, isPostPage, postTitle, actionSlot 
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                  <BreadcrumbLink
+                    href="https://harshsandhu.com"
+                    target="_blank"
+                  >
+                    harshsandhu.com
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 {isPostPage && postTitle ? (
                   <>
@@ -64,7 +83,9 @@ export function SiteHeader({ title, subtitle, isPostPage, postTitle, actionSlot 
               </BreadcrumbList>
             </Breadcrumb>
             <div>
-              <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">{title}</h1>
+              <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                {title}
+              </h1>
               <p className="text-sm text-muted-foreground">{subtitle}</p>
             </div>
           </div>
@@ -113,7 +134,9 @@ export function SiteHeader({ title, subtitle, isPostPage, postTitle, actionSlot 
               </div>
             </HoverCardTrigger>
             <HoverCardContent align="start" className="w-60">
-              <p className="text-sm text-muted-foreground">Built by Harsh Sandhu with shadcn tokens and markdown content.</p>
+              <p className="text-sm text-muted-foreground">
+                Built by Harsh Sandhu with shadcn tokens and markdown content.
+              </p>
             </HoverCardContent>
           </HoverCard>
 
