@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Harsh Sandhu Blog
+
+Personal blog built with Next.js App Router, markdown-first content, shadcn components, and a token-driven chaotic visual style.
+
+## Features
+
+- Markdown-only posts from `content/posts/*.md`
+- Dynamic post routes at `/blog/[slug]`
+- Homepage pagination (`4` posts per page) via `/?page=2`
+- GSAP-powered animated post card grid
+- Light/Dark/System theme toggle
+- shadcn component architecture with semantic color tokens
+- Frontmatter validation and duplicate slug protection
+
+## Tech Stack
+
+- Next.js 16 (App Router, TypeScript)
+- React 19
+- shadcn/ui + Radix primitives
+- Tailwind CSS v4
+- `gray-matter`, `remark`, `rehype` for markdown parsing/rendering
+- GSAP for post-card animations
+- Vitest + ESLint for quality checks
+
+## Project Structure
+
+```text
+content/posts/                 Markdown blog posts
+src/app/page.tsx               Home feed + pagination
+src/app/blog/[slug]/page.tsx   Post detail page
+src/components/blog/           Blog UI components
+src/components/ui/             shadcn UI primitives
+src/lib/content/               Markdown parsing + validation pipeline
+scripts/check-design-tokens.mjs
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Bun (recommended) or Node.js 20+
+
+### Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+- `bun run dev`: start local dev server
+- `bun run build`: production build (`next build --webpack`)
+- `bun run start`: run production server
+- `bun run lint`: run ESLint
+- `bun run test`: run Vitest + token guard
+- `bun run check:tokens`: enforce no hardcoded/tailwind palette colors in `src`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Writing Posts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Add a markdown file in `content/posts`.
 
-## Deploy on Vercel
+Required frontmatter:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `slug` (kebab-case, unique)
+- `title`
+- `description`
+- `date`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Optional frontmatter:
+
+- `updatedAt`
+- `coverImage`
+- `tags` (array)
+- `draft` (hidden in production when `true`)
+- `author`
+
+Example:
+
+```md
+---
+slug: shipping-weekly
+title: Shipping Weekly
+description: Why weekly cadence works.
+date: 2026-02-10
+tags:
+  - business
+  - execution
+draft: false
+author: Harsh Sandhu
+---
+
+# Post Title
+```
+
+## Pagination
+
+- Feed shows `4` posts per page.
+- Use `/?page=<n>` for navigation.
+- Page controls render automatically based on total post count.
+
+## Design Rules
+
+- Use only shadcn components for UI composition.
+- Use semantic shadcn color tokens (no hardcoded hex/rgb/hsl in component code).
+- Keep markdown as the single source of truth for content.
