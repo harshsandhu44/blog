@@ -5,15 +5,10 @@ import { PostPagination } from "@/components/blog/post-pagination";
 import { SiteHeader } from "@/components/blog/site-header";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
+import { siteConfig } from "@/config/site";
 import { getAllPosts } from "@/lib/content/posts";
 
 export const dynamic = "force-dynamic";
-
-export const metadata: Metadata = {
-  title: "Harsh Sandhu - Notes on Tech, Business, and Life",
-  description:
-    "Personal writing on tech execution, business strategy, self-reflection, and in-progress thoughts.",
-};
 
 type HomePageProps = {
   searchParams: Promise<{
@@ -32,6 +27,50 @@ function getPageNumber(pageParam?: string | string[]) {
   }
 
   return Math.floor(parsed);
+}
+
+export async function generateMetadata({ searchParams }: HomePageProps): Promise<Metadata> {
+  const resolvedSearchParams = await searchParams;
+  const currentPage = getPageNumber(resolvedSearchParams.page);
+  const pageTitle = currentPage > 1 ? `Blog - Page ${currentPage}` : "Blog";
+
+  return {
+    title: pageTitle,
+    description:
+      "Personal writing on tech execution, business strategy, self-reflection, and in-progress thoughts.",
+    keywords: [
+      ...siteConfig.keywords,
+      "engineering blog",
+      "product thinking",
+      "startup execution",
+    ],
+    alternates: {
+      canonical: currentPage <= 1 ? "/" : `/?page=${currentPage}`,
+    },
+    openGraph: {
+      type: "website",
+      title: `${pageTitle} | ${siteConfig.name}`,
+      description:
+        "Personal writing on tech execution, business strategy, self-reflection, and in-progress thoughts.",
+      url: currentPage <= 1 ? siteConfig.url : `${siteConfig.url}/?page=${currentPage}`,
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${pageTitle} | ${siteConfig.name}`,
+      description:
+        "Personal writing on tech execution, business strategy, self-reflection, and in-progress thoughts.",
+      images: [siteConfig.ogImage],
+      creator: "@harshsandhu44",
+    },
+  };
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
