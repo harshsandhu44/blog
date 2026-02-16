@@ -48,6 +48,7 @@ type SiteHeaderProps = {
   isPostPage?: boolean;
   postTitle?: string;
   actionSlot?: ReactNode;
+  latestPostHref?: string;
 };
 
 export function SiteHeader({
@@ -56,6 +57,7 @@ export function SiteHeader({
   isPostPage,
   postTitle,
   actionSlot,
+  latestPostHref,
 }: SiteHeaderProps) {
   return (
     <Card className="relative overflow-hidden border-border/60 bg-card/80 backdrop-blur-sm">
@@ -113,9 +115,11 @@ export function SiteHeader({
                 <DropdownMenuItem asChild>
                   <Link href="/">Feed</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/blog/welcome-chaos">Featured post</Link>
-                </DropdownMenuItem>
+                {latestPostHref ? (
+                  <DropdownMenuItem asChild>
+                    <Link href={latestPostHref}>Latest post</Link>
+                  </DropdownMenuItem>
+                ) : null}
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -156,9 +160,11 @@ export function SiteHeader({
                 <Button asChild variant="outline">
                   <Link href="/">Feed</Link>
                 </Button>
-                <Button asChild variant="secondary">
-                  <Link href="/blog/welcome-chaos">Featured</Link>
-                </Button>
+                {latestPostHref ? (
+                  <Button asChild variant="secondary">
+                    <Link href={latestPostHref}>Latest post</Link>
+                  </Button>
+                ) : null}
                 {actionSlot}
               </div>
             </SheetContent>

@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { siteConfig } from "@/config/site";
-import { getAdjacentPosts, getPostBySlug } from "@/lib/content/posts";
+import { getAdjacentPosts, getAllPosts, getPostBySlug } from "@/lib/content/posts";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -78,6 +78,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
+  const allPosts = await getAllPosts();
+  const latestPostHref = allPosts[0] ? `/blog/${allPosts[0].slug}` : undefined;
 
   if (!post) {
     notFound();
@@ -125,6 +127,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         isPostPage
         postTitle={post.meta.title}
         actionSlot={<ThemeToggle />}
+        latestPostHref={latestPostHref}
       />
 
       <article className="space-y-5">

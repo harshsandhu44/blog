@@ -75,6 +75,7 @@ export async function generateMetadata({ searchParams }: HomePageProps): Promise
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const posts = await getAllPosts();
+  const latestPostHref = posts[0] ? `/blog/${posts[0].slug}` : undefined;
   const resolvedSearchParams = await searchParams;
   const requestedPage = getPageNumber(resolvedSearchParams.page);
   const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
@@ -97,6 +98,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         title="Harsh Sandhu"
         subtitle="Tech, business, self-reflection, and unfiltered working notes."
         actionSlot={<ThemeToggle />}
+        latestPostHref={latestPostHref}
       />
 
       <section className="rounded-xl border border-border bg-muted/20 p-4 md:p-6">
