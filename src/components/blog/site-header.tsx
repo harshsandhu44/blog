@@ -67,12 +67,7 @@ export function SiteHeader({
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink
-                    href="https://harshsandhu.com"
-                    target="_blank"
-                  >
-                    harshsandhu.com
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
                 </BreadcrumbItem>
                 {isPostPage && postTitle ? (
                   <>
@@ -84,7 +79,7 @@ export function SiteHeader({
                 ) : null}
               </BreadcrumbList>
             </Breadcrumb>
-            <div>
+            <div className="space-y-1">
               <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
                 {title}
               </h1>
@@ -96,9 +91,13 @@ export function SiteHeader({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="outline" size="icon" asChild>
-                  <Link href="/">
+                  <Link
+                    href="https://harshsandhu.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Home />
-                    <span className="sr-only">Home</span>
+                    <span className="sr-only">Harsh Sandhu</span>
                   </Link>
                 </Button>
               </TooltipTrigger>
