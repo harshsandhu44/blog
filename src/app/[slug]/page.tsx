@@ -10,7 +10,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { siteConfig } from "@/config/site";
-import { getAdjacentPosts, getAllPosts, getPostBySlug } from "@/lib/content/posts";
+import {
+  getAdjacentPosts,
+  getAllPosts,
+  getPostBySlug,
+} from "@/lib/content/posts";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -18,7 +22,9 @@ type BlogPostPageProps = {
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
@@ -131,19 +137,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
 
       <article className="space-y-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary">{publishedDate}</Badge>
-          <Badge variant="outline">{post.meta.readingTime}</Badge>
-          {post.meta.tags.map((tag) => (
-            <Badge key={tag} variant="outline">
-              {tag}
-            </Badge>
-          ))}
-          <Button asChild variant="ghost" size="sm" className="ml-auto">
-            <Link href="/">Back to feed</Link>
-          </Button>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between gap-3">
+            <Badge variant="secondary">{publishedDate}</Badge>
+            <Badge variant="outline">{post.meta.readingTime}</Badge>
+          </div>
+
+          <div className="flex max-md:flex-col md:justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-2">
+              {post.meta.tags.map((tag) => (
+                <Badge key={tag} variant="outline" className="capitalize">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+
+            <Button asChild size="sm">
+              <Link href="/">Back to feed</Link>
+            </Button>
+          </div>
         </div>
         <Separator />
+
         <PostProse html={post.html} />
       </article>
 
