@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { GeistMono } from "geist/font/mono";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { GrainOverlay } from "@/components/grain-overlay";
 
 import "./globals.css";
 
@@ -24,7 +25,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className={GeistMono.variable}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <GrainOverlay />
           {children}
         </ThemeProvider>
       </body>
