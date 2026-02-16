@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
-  const canonicalUrl = `${siteConfig.url}/blog/${post.meta.slug}`;
+  const canonicalUrl = `${siteConfig.url}/${post.meta.slug}`;
   const ogImage = post.meta.coverImage
     ? post.meta.coverImage.startsWith("http")
       ? post.meta.coverImage
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     description: post.meta.description,
     keywords: [...siteConfig.keywords, ...post.meta.tags],
     alternates: {
-      canonical: `/blog/${post.meta.slug}`,
+      canonical: `/${post.meta.slug}`,
     },
     openGraph: {
       type: "article",
@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   const allPosts = await getAllPosts();
-  const latestPostHref = allPosts[0] ? `/blog/${allPosts[0].slug}` : undefined;
+  const latestPostHref = allPosts[0] ? `/${allPosts[0].slug}` : undefined;
 
   if (!post) {
     notFound();
@@ -106,7 +106,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       name: "Harsh Sandhu",
       url: siteConfig.url,
     },
-    mainEntityOfPage: `${siteConfig.url}/blog/${post.meta.slug}`,
+    mainEntityOfPage: `${siteConfig.url}/${post.meta.slug}`,
     image: post.meta.coverImage
       ? post.meta.coverImage.startsWith("http")
         ? post.meta.coverImage

@@ -63,7 +63,7 @@ export function PostCard({ post, index }: PostCardProps) {
           ))}
         </div>
         <CardTitle className="text-xl wrap-break-word">
-          <Link href={`/blog/${post.slug}`} className="hover:underline">
+          <Link href={`/${post.slug}`} className="hover:underline">
             {post.title}
           </Link>
         </CardTitle>
@@ -76,7 +76,7 @@ export function PostCard({ post, index }: PostCardProps) {
         </p>
 
         <Button asChild variant="link">
-          <Link href={`/blog/${post.slug}`}>Read post</Link>
+          <Link href={`/${post.slug}`}>Read post</Link>
         </Button>
       </CardContent>
     </Card>

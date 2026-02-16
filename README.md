@@ -5,7 +5,7 @@ Personal blog built with Next.js App Router, markdown-first content, shadcn comp
 ## Features
 
 - Markdown-only posts from `content/posts/*.md`
-- Dynamic post routes at `/blog/[slug]`
+- Dynamic post routes at `/[slug]`
 - Homepage pagination (`4` posts per page) via `/?page=2`
 - GSAP-powered animated post card grid
 - Light/Dark/System theme toggle
@@ -27,7 +27,7 @@ Personal blog built with Next.js App Router, markdown-first content, shadcn comp
 ```text
 content/posts/                 Markdown blog posts
 src/app/page.tsx               Home feed + pagination
-src/app/blog/[slug]/page.tsx   Post detail page
+src/app/[slug]/page.tsx        Post detail page
 src/components/blog/           Blog UI components
 src/components/ui/             shadcn UI primitives
 src/lib/content/               Markdown parsing + validation pipeline

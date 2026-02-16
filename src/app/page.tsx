@@ -75,7 +75,7 @@ export async function generateMetadata({ searchParams }: HomePageProps): Promise
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const posts = await getAllPosts();
-  const latestPostHref = posts[0] ? `/blog/${posts[0].slug}` : undefined;
+  const latestPostHref = posts[0] ? `/${posts[0].slug}` : undefined;
   const resolvedSearchParams = await searchParams;
   const requestedPage = getPageNumber(resolvedSearchParams.page);
   const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));

@@ -26,7 +26,7 @@ export function PostNavigation({ prev, next }: PostNavigationProps) {
         <CardContent>
           {prev ? (
             <Link
-              href={`/blog/${prev.slug}`}
+              href={`/${prev.slug}`}
               className="group inline-flex items-start gap-2 text-base font-medium leading-snug hover:underline"
             >
               <ArrowLeft className="mt-0.5 size-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
@@ -49,7 +49,7 @@ export function PostNavigation({ prev, next }: PostNavigationProps) {
         <CardContent>
           {next ? (
             <Link
-              href={`/blog/${next.slug}`}
+              href={`/${next.slug}`}
               className="group inline-flex items-start gap-2 text-base font-medium leading-snug hover:underline"
             >
               <span className="wrap-break-word">{next.title}</span>
