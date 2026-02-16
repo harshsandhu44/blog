@@ -11,7 +11,7 @@ export default function NotFound() {
   const curlCommand = `curl https://harshsandhu.com${path}`;
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center p-4 font-mono selection:bg-primary/30">
+    <div className="flex h-dvh w-full flex-col items-center justify-center overflow-hidden p-4 font-mono selection:bg-primary/30">
       <div className="w-full max-w-2xl overflow-hidden rounded-lg border bg-card/50 shadow-2xl">
         {/* Terminal Header */}
         <div className="flex items-center gap-2 border-b bg-card px-4 py-2">

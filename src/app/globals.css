@@ -189,6 +189,7 @@
 .chaos-shell {
   position: relative;
   isolation: isolate;
+  overflow: clip;
 }
 
 .chaos-shell::before,
